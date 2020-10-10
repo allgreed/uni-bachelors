@@ -1,0 +1,12 @@
+# data
+crypto.txt
+decrypt.txt
+key.txt
+plain.txt
+extra.txt
+key-new.txt
+orig.txt
+key-crypto.txt
+
+# artifacts
+*.tar

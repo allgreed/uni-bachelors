@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+for hf in md5sum sha1sum sha224sum sha256sum sha384sum sha512sum
+do
+    cat $@ | $hf - | cut -d' ' -f 1
+done

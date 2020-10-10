@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+f()
+{
+    echo "2 * $1 + 1" | bc
+}
+
+while true
+do
+    if [ -s "dane" ]
+    then
+        n=$(cat dane | tr -d '[:space:]')
+        rm dane
+        f $n > wyniki
+    fi
+done

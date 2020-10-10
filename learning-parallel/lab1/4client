@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+read -r n
+echo $n > dane
+
+while [ ! -s "wyniki" ]
+do
+    :
+done
+
+cat wyniki
+rm wyniki

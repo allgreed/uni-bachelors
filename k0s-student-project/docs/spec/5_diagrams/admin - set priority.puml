@@ -1,0 +1,39 @@
+@startuml
+title Set Priority
+
+actor Administrator
+boundary UI
+activate UI
+participant Main
+database LDAP
+
+Administrator -> UI: Request users
+UI -> Main: Resquest users
+activate Main
+Main -> LDAP: Request users
+activate LDAP
+LDAP --> Main: Send users
+deactivate LDAP
+Main --> UI: Send users
+deactivate Main
+UI --> Administrator: Show users
+
+Administrator -> UI: Check user
+UI -> Main: Check user
+activate Main
+Main -> LDAP: Check user
+activate LDAP
+LDAP --> Main: Return user details
+deactivate LDAP
+Main --> UI: Return user details
+deactivate Main
+UI --> Administrator: Show user details
+
+Administrator ->> UI: Set user priority
+UI ->> Main: Set user priority
+activate Main
+Main ->> LDAP: Set user priority
+activate LDAP
+deactivate LDAP
+deactivate Main
+@enduml

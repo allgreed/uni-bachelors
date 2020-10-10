@@ -1,0 +1,8 @@
+# Compiled class files
+*.class
+
+# Idea compiled directory
+out
+
+# External libraries
+lib

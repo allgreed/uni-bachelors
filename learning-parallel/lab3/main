@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+FILENAME=$1
+DIR=$2
+IS_CHILD=$3
+SELF=$4
+P_COUNTER=0
+EXIT_CODE=0
+
+if [ -z "$1" ]
+then
+    echo "Nie mam argumentów :C"
+    exit 2
+fi
+
+if [ -z "$SELF" ]
+then
+    SELF="$PWD/$0"
+fi
+
+function process_file()
+{
+    F=$1
+    if [ -d $F ]; then
+        P_COUNTER=$((P_COUNTER + 1))
+        $SELF $FILENAME $F 1 $SELF &
+    else
+        if [ $F = $FILENAME ]; then
+            EXIT_CODE=1
+            echo "$PWD/$F"
+        fi
+    fi
+}
+
+cd $DIR
+
+for f in `ls`
+do
+    process_file $f
+done
+
+CHILD_FOUND=0
+for i in `seq 1 $P_COUNTER`
+do
+    wait -n
+    CHILD_FOUND=$((CHILD_FOUND + $?))
+done
+
+if [ -z "$IS_CHILD" ]
+then
+    if [ $((CHILD_FOUND + EXIT_CODE)) -eq 0 ]; then
+        echo "nie znaleziono"
+    fi
+
+    exit 0
+fi
+
+exit $((EXIT_CODE + CHILD_FOUND))

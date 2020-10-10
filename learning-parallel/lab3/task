@@ -1,0 +1,12 @@
+https://matjs.strony.ug.edu.pl/Laboratoria/Wspolbiegi/Lab3_wspolbiegi.txt
+
+ Utworzyć skrypt o dwóch argumentach: szukaj plik katalog , który (podobnie,
+    jak polecenie find) znajduje wszystkie wystšpienia pliku o podanej nazwie
+    w poddrzewie katalogów o podanej nazwie ścieżkowej korzenia. Skrypt powinien
+    działać na zasadzie współbieżnych, rekurencyjnych wywołań dla wszystkich
+    podkatalogów danego katalogu i powinien wykorzystywać wyżej omówiony
+    mechanizm exit - wait do przekazywania informacji od procesów potomnych do
+    rodzicielskich.
+
+    Uwaga: w przypadku, gdy skrypt nie znajdzie ani jednego wystšpienia danego
+           pliku, powinien wyświetlić komunikat "Nie znaleziono", ale TYLKO RAZ.

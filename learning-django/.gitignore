@@ -1,0 +1,12 @@
+# IDE files
+.idea
+
+# Cache
+__pycache__
+
+# Development DB
+db.sqlite3
+
+# My fixtures
+sample_app/fixtures/users.json
+sample_app/fixtures/fixture.json

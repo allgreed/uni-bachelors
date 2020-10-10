@@ -1,0 +1,1 @@
+./vigenere-rs/target/release/vigenere-rs $@

@@ -1,0 +1,45 @@
+.intel_syntax noprefix
+.global main
+
+.text
+main:
+    mov eax, 45
+    mov ecx, eax
+    call f
+
+    push eax
+    mov eax, offset msg
+    push eax
+    call printf
+    add esp, 8
+
+    mov eax, 0
+    ret
+
+f:
+    cmp ecx, 2
+    jae skok
+    mov eax, 1
+    jmp koniec
+skok:
+    dec ecx
+
+    push ecx
+    call f
+
+    pop ecx
+    dec ecx
+
+    push eax
+
+    call f
+
+    add eax, eax
+    pop ebx
+    add eax, ebx
+
+koniec:
+    ret
+
+.data
+msg: .asciz "Wynik=%i\n"

@@ -1,0 +1,8 @@
+# artifacts
+hash-rs/target
+*.tar
+hash.txt
+hash_.txt
+
+# data
+hash.pdf

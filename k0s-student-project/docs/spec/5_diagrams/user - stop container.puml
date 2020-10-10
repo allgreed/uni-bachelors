@@ -1,0 +1,43 @@
+@startuml
+title Stop Container
+
+actor User
+boundary UI
+participant Main
+participant Cluster
+database Postgres
+database LDAP
+
+activate UI
+User -> UI:List containers
+UI -> Main:List containers
+activate Main
+Main -> LDAP: List containers
+activate LDAP
+LDAP --> Main: Containers list
+deactivate LDAP
+Main --> UI: Containers list
+deactivate Main
+UI -> User: Containers  list
+
+User -> UI: Stop container
+UI -> Main: Stop container
+activate Main
+Main ->> Postgres: Save request
+activate Postgres
+Postgres -> Postgres:Save request
+Main -> Cluster: Stop container
+activate Cluster
+deactivate Postgres
+Cluster -> Cluster: Stop container
+Cluster --> Main: Container status
+deactivate Cluster
+Main -> LDAP: Update container status
+activate LDAP
+LDAP -> LDAP: Update container
+LDAP --> Main: Update status
+deactivate LDAP
+Main --> UI: Container status
+deactivate Main
+UI --> User: Container status
+@enduml

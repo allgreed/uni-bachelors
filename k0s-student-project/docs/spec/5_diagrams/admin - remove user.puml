@@ -1,0 +1,43 @@
+@startuml
+title Remove User
+
+actor Administrator
+boundary UI
+activate UI
+participant Main
+database LDAP
+
+Administrator -> UI: Request users
+UI -> Main: Resquest users
+activate Main
+Main -> LDAP: Request users
+activate LDAP
+LDAP --> Main: Send users
+deactivate LDAP
+Main --> UI: Send users
+deactivate Main
+UI --> Administrator: Show users
+
+Administrator -> UI: Check user
+UI -> Main: Check user
+activate Main
+Main -> LDAP: Check user
+activate LDAP
+LDAP --> Main: Return user details
+deactivate LDAP
+Main --> UI: Return user details
+deactivate Main
+UI --> Administrator: Show user details
+
+Administrator -> UI: Remove user
+UI -> Main: Remove user
+activate Main
+Main -> LDAP: Remove user
+activate LDAP
+LDAP -> LDAP: Remove user
+LDAP --> Main: Removal status
+deactivate LDAP
+Main --> UI: Removal status
+deactivate Main
+UI --> Administrator: Removal status
+@enduml

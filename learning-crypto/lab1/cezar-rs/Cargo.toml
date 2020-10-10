@@ -1,0 +1,12 @@
+[package]
+name = "cezar-rs"
+version = "0.1.0"
+authors = ["Olgierd \"Allgreed\" Kasprowicz <olixem@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+phf = { version = "0.8", features = ["macros"] }
+
+[dev-dependencies]
+quickcheck = "0.8"
+quickcheck_macros = "0.8"

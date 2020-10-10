@@ -1,0 +1,33 @@
+@startuml
+title Register
+
+actor Gość
+boundary UI
+participant Main
+database LDAP
+
+activate UI
+Gość -> UI:Register
+UI -> Main: Invite check
+activate Main
+Main -> LDAP: Invite check
+activate LDAP
+LDAP --> Main: Authentication result
+deactivate LDAP
+Main --> UI: Authentication result
+UI --> Gość: Return registration form
+
+Gość -> UI: Registration form
+UI -> Main: Register user
+Main -> LDAP: Register new user
+activate LDAP
+LDAP -> LDAP: Register new user
+LDAP --> Main: Registration status
+Main -> LDAP: Remove invite
+LDAP -> LDAP: Remove invite
+LDAP --> Main: Removal status
+deactivate LDAP
+Main --> UI: Registration Status
+deactivate Main
+UI --> Gość: Registration status
+@enduml

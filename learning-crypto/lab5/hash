@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+PROG=hash
+
+DEBUG="./$PROG-rs/target/debug/$PROG-rs"
+RELEASE="./$PROG-rs/target/release/$PROG-rs"
+
+if [ -f $RELEASE ]; then
+    $RELEASE $@
+else
+    $DEBUG $@
+fi

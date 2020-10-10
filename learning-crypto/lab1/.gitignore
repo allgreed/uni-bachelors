@@ -1,0 +1,12 @@
+# python bytecode
+__pycache__
+# pytest cache
+.cache
+
+# data
+crypto.txt
+decrypt.txt
+key.txt
+plain.txt
+extra.txt
+key-new.txt

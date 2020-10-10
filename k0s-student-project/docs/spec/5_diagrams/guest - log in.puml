@@ -1,0 +1,21 @@
+@startuml
+title Log In
+
+actor Gość
+boundary UI
+participant Main
+database LDAP
+
+Gość -> UI:Log in
+activate UI
+UI -> Main: Authenticate
+activate Main
+Main -> LDAP: Authentication check
+activate LDAP
+LDAP --> Main: Authentication result
+deactivate LDAP
+Main --> UI: Authentication result
+deactivate Main
+UI --> Gość: Log in result
+deactivate UI
+@enduml

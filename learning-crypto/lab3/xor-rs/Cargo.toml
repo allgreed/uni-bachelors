@@ -1,0 +1,10 @@
+[package]
+name = "xor-rs"
+version = "0.1.0"
+authors = ["Olgierd \"Allgreed\" Kasprowicz <olixem@gmail.com>"]
+edition = "2018"
+
+[dev-dependencies]
+quickcheck = "0.8"
+quickcheck_macros = "0.8"
+test-case = "0.3.3"

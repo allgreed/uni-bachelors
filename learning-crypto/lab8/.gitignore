@@ -1,0 +1,10 @@
+# artifacts
+elgamal-rs/target
+*.tar
+
+# data
+crypto.txt
+decrypt.txt
+elgamal.txt
+private.txt
+public.txt

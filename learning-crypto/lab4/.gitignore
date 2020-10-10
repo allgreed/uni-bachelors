@@ -1,0 +1,6 @@
+# artifacts
+block-rs/target
+*.tar
+
+# data
+*_crypto.bmp

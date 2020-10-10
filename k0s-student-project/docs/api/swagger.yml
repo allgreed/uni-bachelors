@@ -1,0 +1,426 @@
+openapi: 3.0.2
+
+info:
+  version: 1.0.0
+  title: 'k0s'
+  description: K0s to platforma do współdzielenia zasobów komputerowych w klastrze obliczeniowym.
+tags:
+- name: user
+  description: Everything about users
+- name: container
+  description: Everything about containers
+- name: cluster
+  description: Everything about cluster
+
+paths:
+#### container
+  /container:
+    get:
+      summary: List all containers
+      operationId: listContainers
+      tags:
+        - container
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of containers
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Containers"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a container
+      operationId: createContainer
+      tags:
+        - container
+      parameters:
+        - in: query
+          name: create
+          schema:
+            $ref: '#/components/schemas/Container'
+      responses:
+        '201':
+          description: Created
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - container
+      summary: Update an existing container
+      operationId: updateContainer
+      parameters:
+        - in: query
+          name: query
+          description: Container object
+          required: true
+          schema:
+            $ref: '#/components/schemas/Container'
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Container not found
+        '405':
+          description: Validation exception
+
+  /container/{containerId}:
+    get:
+      summary: Info for a specific container
+      operationId: showContainerById
+      tags:
+        - container
+      parameters:
+        - name: containerId
+          in: path
+          required: true
+          description: The id of the container to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Containers"
+        '404':
+          description: Container not found
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete specific container
+      tags:
+        - container
+      operationId: deleteContainer
+      parameters:
+        - name: containerId
+          in: path
+          description: ID of container to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Container deleted
+        '404':
+          description: Container not found
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+###user
+
+  /user:
+    get:
+      summary: List all users
+      operationId: listUsers
+      tags:
+        - user
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of users
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Users"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create an user
+      operationId: createUser
+      tags:
+        - user
+      parameters:
+        - in: query
+          name: create
+          schema:
+            $ref: '#/components/schemas/User'
+          example:
+            id: 15
+            name: Johny Bravo
+            email: john@example.com
+            role: admin
+      responses:
+        '201':
+          description: Created
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                
+    put:
+      tags:
+        - user
+      summary: Update an existing user
+      operationId: updateUser
+      parameters:
+        - in: query
+          name: query
+          description: User object
+          required: true
+          schema:
+            $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: User not found
+        '405':
+          description: Validation exception
+  /user/{userId}:
+    get:
+      summary: Info for a specific user
+      operationId: showUserById
+      tags:
+        - user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The id of the user to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        '404':
+          description: User not found
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete specific user
+      tags:
+        - user
+      operationId: deleteUser
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: User deleted
+        '404':
+          description: User not found
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /user/login:
+    get:
+      tags:
+        - user
+      summary: Logs user into the system
+      operationId: loginUser
+      parameters:
+        - name: email
+          in: query
+          description: The user name for login
+          required: true
+          schema:
+            $ref: '#/components/schemas/User/properties/email'
+        - name: password
+          in: query
+          description: The password for login in clear text
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid username/password supplied
+  /user/logout:
+    get:
+      tags:
+        - user
+      summary: Logs out current logged in user session
+      operationId: logoutUser
+      parameters: []
+      responses:
+        default:
+          description: successful operation
+
+###cluster
+
+  /cluster:
+    get:
+      summary: Info about cluster
+      operationId: ClusterInfo
+      tags:
+        - cluster
+      responses:
+        '200':
+          description: Current info about cluster
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Cluster"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+security:
+  - BasicAuth: []
+  - ApiKeyAuth: []
+  - OAuth2: [read, write]
+
+components:
+  schemas:
+    Container:
+      required:
+        - id
+        - name
+        - state
+        - owner
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        image:
+          type: string
+        tag:
+          type: string
+        state:
+          type: string
+          enum: [running, stopped, broken]
+        owner:
+          $ref: "#/components/schemas/User"
+      example:
+        id: 4ab39d85f
+        name: my dns server
+        image: pihole/pihole
+        tag: networking
+        state: running
+    Containers:
+      type: array
+      items:
+        $ref: "#/components/schemas/Container"
+
+    User:
+      required:
+        - id
+        - name
+        - email
+        - state
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum: [admin, user, banned]
+      example:
+        id: 1
+        name: Jan Kowalski
+        email: JohnKowalsky@example.com
+        role: admin
+    Users:
+      type: array
+      items:
+        $ref: "#/components/schemas/User"
+        
+    Cluster:
+      required:
+        - name
+        - load
+        - state
+        - containers
+      properties:
+        name:
+          type: string
+        load:
+          type: integer
+        state:
+          type: string
+          enum: [running, stopped, broken]
+      example:
+        name: hs3city
+        load: 25
+        state: running
+        containers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Container"
+        
+
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

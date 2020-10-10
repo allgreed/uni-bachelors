@@ -1,0 +1,57 @@
+@startuml
+
+[UI] as ui
+[LDAP] as ldap
+database redis <<optional>>
+database postgres as pg
+actor User as user
+actor Programmer as puser
+
+package "Main" as main {
+    [Django] as dj
+    [python-ldap] as pldap
+    [redis-py] <<optional>> as predis
+    [python-nomad] as pnomad
+}
+
+cloud cluster as cls {
+    node "Node 0" {
+        [Nomad] as n0
+        boundary Proxy as p0
+    }
+    
+    node "Node n" {
+        [Nomad] as n1
+        boundary Proxy as p1
+    }
+    
+    n1 <..> n0
+    p0 <..> p1
+}
+
+() "HTTP API" as api
+
+note bottom of api
+    docs/api/swagger.yml
+end note
+
+user -> ui
+user -left-> p0
+user -left-> p1
+ui -> api
+puser -left-> api
+
+pg <-> dj
+pldap <-> ldap
+predis <-down-> redis
+pnomad <-> n0
+pnomad <-> n1
+
+
+api .. dj
+
+dj -- pldap
+dj -- predis
+dj -- pnomad
+
+@enduml

@@ -1,0 +1,12 @@
+# artifacts
+xor-rs/target
+*.tar
+
+# data
+crypto.txt
+decrypt.txt
+key.txt
+plain.txt
+extra.txt
+key-new.txt
+orig.txt

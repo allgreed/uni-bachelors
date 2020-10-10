@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]
+then
+    echo "Nie mam argumentów :C"
+    exit 1
+fi
+
+SERVER_QUEUE=$1
+RETURN_QUEUE=$(realpath $2)
+PAYLOAD=$3
+
+echo "$PAYLOAD $RETURN_QUEUE" > $SERVER_QUEUE
+read OUTPUT < $RETURN_QUEUE
+
+echo $OUTPUT

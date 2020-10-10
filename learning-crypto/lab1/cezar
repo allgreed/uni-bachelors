@@ -1,0 +1,1 @@
+./cezar-rs/target/release/cezar-rs $@

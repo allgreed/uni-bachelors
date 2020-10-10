@@ -1,0 +1,19 @@
+2 players running the same algorithm (turn)
+turn is atomic
+
+player is actually a sequence of moves
+
+algo is:
+- print board
+- check status
+- move
+
+- print board must happen BEFORE move
+- check status must happen BEFORE move
+
+- board is a bool <- it's finished or not
+- move can change a board to true or false (undeterministically)
+- after 9 moves a board will be false regardless of moves
+
+- when board is false -> END_TURN; END_ALGO;
+- after move -> END_TURN;

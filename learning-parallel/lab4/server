@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+INPUT_QUEUE=$1
+
+if [ -z "$1" ]
+then
+    echo "Nie mam argumentów :C"
+    exit 1
+fi
+
+function handler
+{
+    NUMBER=$1
+    OUTPUT_QUEUE=$2
+
+    # compute
+    ((NUMBER++))
+
+    echo $NUMBER > $OUTPUT_QUEUE
+}
+
+function quit
+{
+    echo "Bye!"
+    exit 0
+}
+
+
+function main
+{
+    while true; do
+
+    read INPUT < $INPUT_QUEUE
+
+    INPUT=($INPUT)
+    DATA=${INPUT[0]}
+    DESTINATION=${INPUT[1]}
+
+    handler $DATA $DESTINATION &
+
+    done
+}
+
+
+trap "" SIGHUP
+trap "" SIGTERM
+trap quit SIGINT
+trap quit SIGUSR1
+
+echo "Starting server with pid: $$"
+main

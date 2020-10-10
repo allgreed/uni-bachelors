@@ -1,0 +1,18 @@
+https://matjs.strony.ug.edu.pl/Laboratoria/Wspolbiegi/Lab4_wspolbiegi.txt
+https://inf.ug.edu.pl/~pmp/Z/Wspolb/lab4.html
+
+Zadanie 2. (PODLEGA ODBIOROWI - CZAS 2 ZAJĘCIA) Utworzyć parę skryptów klient-serwer komunikującą się przez parę łącz nazwanych. Nazwy łącz: .../klientfifo i .../serwerfifo . Klient wpisuje do łącza po stronie serwera:
+a) swoją wartość $HOME
+b) jedną liczbe cakowita.
+Serwer oblicza pewną funkcję arytmetyczną i wynik wstawia do łącza po stronie klienta.
+
+Skrypt klienta otrzymuje dwa argumenty wywołania:
+a) liczbę do wysłania;
+b) nazwę konta, na którym działa serwer.
+Klient działa tylko jednorazowo (nie w pętli).
+
+Serwer powinien być serwerem współbieżnym, czyli jego główny proces powinien jedynie pobierać dane z kolejki i przekazywać je do obsługi swoim kolejnym procesom potomnym, które obliczają wynik i odsyłają bezpośrednio do klienta, a następnie kończą działanie.
+
+Zapewnić w programie serwera przechwytywanie sygnałów związanych odpowiednio z wylogowaniem i wyłączeniem okna ( trap "" SIGHUP oraz trap "" SIGTERM), tak, aby mógł działać przez cały czas. Prawidłowe zakończenie pracy serwera powinno następować po przechwyceniu sygnału SIGUSR1.
+
+Uwaga: jednym z podstawowych problemów, jakie należy rozwiązać w skrypcie serwera, jest możliwość przerwania wykonywania funkcji odczytu z łącza przez proces rodzicielski wskutek (asynchronicznego) otrzymania sygnału SIGCHLD od któregoś z kończących pracę potomków. 

@@ -1,0 +1,18 @@
+-> czy promocje się łączą?
+    jeżeli tak to kolejność ich aplikowania ma znaczenie -> np.
+       promocja 3 za 2 + -5% za zakupy powyżej 300 PLN != -5% za zakupy powyżej 300 PLN + promocja 3 za 2
+       -> druga opcja korzystniejsza dla klienta
+       -> jaka kolejność aplikacji promocji?
+
+    -> z racji, że często spotykam się z obwieszczeniem "promocje nie łączą się" to tak właśnie założę
+
+-> czy to jest w porządku, że promocja -5% za zakupy powyżej 300 PLN dla wartości zakupów x: 300 > x >= 315 kończą się całkowitą kwotą zakupów mniejszą, niż 300 PLN?
+    -> roboczo zakładam, że ktoś to przemyślał
+
+- Jednorazowy kupon rabatowy 30% na wybrany produkt
+    -> czy ten kupon jest na wszystkie instancje danego produktu czy tylko na jedną?
+    Przykład: mam kupon 30% na mleko, w koszyku są 3 mleka:
+        - płacę 70% za pierwsze, 100% i 100% za kolejne
+        - czy: 70%, 70% i 70%?
+    -> czy jednorazowy odnosi się do tego, że można go wykorzystać tylko raz?
+    -> roboczo zakładam, że "jednorazowy" odnosi się do 1 instancji produktu
